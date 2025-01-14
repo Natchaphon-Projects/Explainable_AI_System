@@ -1,0 +1,164 @@
+/* LoginPage Styles */
+.login-container {
+    max-width: 380px; /* Consistent width */
+    margin: 50px auto; /* Center horizontally and add spacing from top */
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-container h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.login-container p {
+    font-size: 14px;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.switch-button {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: 2px solid #34c38f;
+    border-radius: 25px;
+    background: transparent;
+    color: #34c38f;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.switch-button:hover {
+    background: #34c38f;
+    color: #ffffff;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.divider hr {
+    flex: 1;
+    height: 1px;
+    background: #dddddd;
+    border: none;
+}
+
+.divider span {
+    margin: 0 10px;
+    font-size: 12px;
+    color: #777777;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjust for the toggle icon */
+    width: 100%;
+    max-width: 320px; /* Slightly larger width for better usability */
+    margin: 0 auto 16px;
+    padding: 10px 12px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    position: relative; /* Required for toggle icon */
+    box-sizing: border-box; /* Ensures padding does not exceed max-width */
+}
+
+.input-field input {
+    width: calc(100% - 40px); /* Adjust width to leave space for icons */
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #000000;
+    margin-left: 8px;
+}
+
+.input-field svg {
+    color: #999999;
+    font-size: 16px;
+}
+
+.toggle-icon {
+    position: absolute;
+    right: 12px; /* Position the toggle icon to the right */
+    color: #999999;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1; /* Ensure it's above other elements */
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 12px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.options a {
+    color: #34c38f;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.primary-button {
+    width: 100%; /* Ensure button spans full width */
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    background: #34c38f;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+    background: #2c9f75;
+}
+
+.login-container p a {
+    color: #34c38f;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #34c38f;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.link-button:hover {
+    text-decoration: none;
+}

@@ -1,0 +1,193 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Main Container */
+  .manage-department-container {
+    font-family: "Poppins", sans-serif;
+    background-color: #f9fafc;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  /* Header Section */
+  header {
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 40px;
+    color: #34c38f;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  header p {
+    font-size: 18px;
+    color: #7a7f85;
+    font-style: italic;
+  }
+  
+  /* Search Input */
+  .search-container {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    flex: 1;
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #34c38f;
+    outline: none;
+  }
+  
+  /* Action Buttons Row */
+  .action-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  /* Back Button */
+  .back-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #f3f4f6;
+    color: #333;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #ff6b6b;
+    color: white;
+    border-color: #ff6b6b;
+    transform: translateY(-2px);
+  }
+  
+  /* Add Button */
+  .add-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #34c38f;
+    color: white;
+    border: 1.5px solid #34c38f;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .add-button:hover {
+    background-color: #2b8f69;
+    border-color: #2b8f69;
+    transform: translateY(-2px);
+  }
+  
+  /* Patient List */
+  .patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Patient Card */
+  .patient-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .patient-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Patient Info */
+  .patient-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .patient-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .patient-hn {
+    font-size: 14px;
+    color: #7a7f85;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-button {
+    background-color: #34c38f;
+    color: white;
+    border: none;
+  }
+  
+  .edit-button:hover {
+    background-color: #2b8f69;
+    transform: translateY(-2px);
+  }
+  
+  .delete-button {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+  }
+  
+  .delete-button:hover {
+    background-color: #e55656;
+    transform: translateY(-2px);
+  }
+  

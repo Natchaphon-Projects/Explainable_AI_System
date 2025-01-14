@@ -1,0 +1,125 @@
+/* General Container */
+.assessment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f3f7f9;
+    padding: 20px;
+  }
+  
+  /* Card Container */
+  .card-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Card Style */
+  .card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    font-size: 26px;
+    color: #34c38f;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  /* Form Elements */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #34c38f;
+    box-shadow: 0 0 8px rgba(52, 195, 143, 0.5);
+    outline: none;
+  }
+  
+  button {
+    background-color: #34c38f;
+    color: white;
+    font-weight: bold;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #2b8f69;
+    transform: translateY(-2px);
+  }
+  
+  /* Back Button */
+  .back-button {
+    background-color: #ddd;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  /* Result Section */
+  .result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .at-risk {
+    background-color: #ffe6e6;
+    color: #e60000;
+    border: 2px solid #e60000;
+  }
+  
+  .no-risk {
+    background-color: #e6ffe6;
+    color: #008000;
+    border: 2px solid #008000;
+  }
+  
+  .result-icon {
+    width: 80px;
+    margin-top: 10px;
+  }
+  
+  .placeholder {
+    font-size: 16px;
+    color: #555;
+  }
+  
