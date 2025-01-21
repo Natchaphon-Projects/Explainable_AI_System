@@ -121,7 +121,44 @@
     font-size: 12px;
     vertical-align: middle; /* ทำให้ checkbox และข้อความอยู่ในแนวเดียวกัน */
 }
+.remember-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;  /* ระยะห่างระหว่าง checkbox กับข้อความ */
+}
+.remember-container input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+}
 
+/* หรือ วิธีที่ 2: ใช้ vertical-align */
+.checkbox {
+    vertical-align: middle;
+    margin-right: 8px;  /* ระยะห่างระหว่าง checkbox กับข้อความ */
+}
+
+label, .remember-text {
+    font-size: 16px;  /* ขนาดตัวอักษรให้เท่ากับ checkbox */
+    line-height: 1;   /* ทำให้ความสูงของข้อความพอดี */
+    display: inline-flex;
+    align-items: center;
+}
+.remember-container label {
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+}
+.create-container  {
+    display: flex;
+    align-items: center;
+    gap: 27px;  /* ระยะห่างระหว่าง checkbox กับข้อความ */
+    
+}
 .options a {
     color: #34c38f;
     text-decoration: none;

@@ -43,6 +43,7 @@
     width: 100%;
     max-width: 600px;
     margin-bottom: 20px;
+    gap: 10px;
   }
   
   .search-input {
@@ -156,10 +157,15 @@
   /* Action Buttons */
   .action-buttons {
     display: flex;
+    justify-content: center; /* จัดให้ปุ่มอยู่ตรงกลางแนวนอน */
+    align-items: center;     /* จัดให้ปุ่มอยู่ตรงกลางแนวตั้ง */
     gap: 10px;
-  }
+    align-content: center;
+    padding-bottom: 20px;
+}
   
   .edit-button,
+
   .delete-button {
     padding: 8px 16px;
     font-size: 14px;
@@ -173,6 +179,7 @@
     background-color: #34c38f;
     color: white;
     border: none;
+    
   }
   
   .edit-button:hover {
