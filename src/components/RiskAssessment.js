@@ -1,100 +1,100 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // For back navigation
+import { useNavigate } from "react-router-dom";
 import "./RiskAssessment.css";
-import sadFace from "../assets/sad.png"; // Sad face image
-import happyFace from "../assets/happiness.png"; // Happy face image
+import sadFace from "../assets/sad.png";
+import happyFace from "../assets/happiness.png";
 
 function RiskAssessment() {
-  const navigate = useNavigate(); // Navigation function
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    age: "",
-    weight: "",
-    height: "",
-    gender: "",
-    disease: "",
-    meals: "",
+    Sex: 0,
+    Age: 0,
+    Height: 0,
+    Weight: 0,
+    Continent: 0,
+    National_Income: 0,
+    Status: 0,
+    Dietary_intakes_National: 0,
+    Dietary_intakes_Fruit_G: 0,
+    Dietary_intakes_Vegetables_G: 0,
+    Dietary_intakes_Legumes_G: 0,
+    Dietary_intakes_Nuts_G: 0,
+    Dietary_intakes_Whole_grains_G: 0,
+    Dietary_intakes_Fish_G: 0,
+    Dietary_intakes_Dairy_G: 0,
+    Dietary_intakes_Red_meat_G: 0,
+    Basic_Water: 0,
+    At_Least_Basic_Water: 0,
+    Safely_Managed_Water: 0,
+    Limited_Water: 0,
+    Unimproved_Water: 0,
+    Surface_Water: 0,
+    Basic_Sanitation: 0,
+    At_Least_Basic_Sanitation: 0,
+    Safely_Managed_Sanitation: 0,
+    Limited_Sanitation: 0,
+    Unimproved_Sanitation: 0,
+    Open_Defecation: 0,
   });
-  const [result, setResult] = useState(null); // Stores the risk result
+
+  const [result, setResult] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    // แปลงค่าที่กรอกให้เป็นตัวเลขเสมอ
+    setFormData({
+      ...formData,
+      [name]: value === "" ? 0 : parseFloat(value),
+    });
   };
 
-  const handleSubmit = () => {
-    // Validate form fields
-    const { age, weight, height, gender, disease, meals } = formData;
-    if (!age || !weight || !height || !gender || !disease || !meals) {
-      alert("กรุณากรอกข้อมูลให้ครบทุกช่องก่อนทำการประเมิน");
-      return;
-    }
+  const handleSubmit = async () => {
+    console.log("Form data before sending:", formData);
 
-    // Generate result
-    const isAtRisk = Math.random() > 0.5; // Randomize result
-    setResult(isAtRisk ? "at-risk" : "no-risk");
+    try {
+      const response = await fetch("http://127.0.0.1:5000/prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.prediction) {
+        setResult(data.prediction);
+      } else {
+        console.error("Error in prediction response:", data.error);
+        setResult("error");
+      }
+    } catch (error) {
+      console.error("Error during API call:", error);
+      setResult("error");
+    }
   };
 
   return (
     <div className="assessment-container">
       <div className="card-container">
-        {/* Input Card */}
         <div className="card">
           <h2>ประเมินความเสี่ยงเบื้องต้น</h2>
           <form>
-            <label>
-              อายุ:
-              <input
-                type="text"
-                name="age"
-                placeholder="กรอกอายุ"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              น้ำหนัก:
-              <input
-                type="text"
-                name="weight"
-                placeholder="กรอกน้ำหนัก (kg)"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              ส่วนสูง:
-              <input
-                type="text"
-                name="height"
-                placeholder="กรอกส่วนสูง (cm)"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              เพศ:
-              <input
-                type="text"
-                name="gender"
-                placeholder="กรอกเพศ"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              โรคประจำตัว:
-              <input
-                type="text"
-                name="disease"
-                placeholder="กรอกโรคประจำตัว"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              มื้ออาหารต่อวัน:
-              <input
-                type="text"
-                name="meals"
-                placeholder="กรอกจำนวนมื้ออาหาร"
-                onChange={handleChange}
-              />
-            </label>
+            {Object.keys(formData).map((key) => (
+              <label key={key}>
+                {key}:
+                <input
+                  type="number"
+                  name={key}
+                  placeholder={`Enter ${key}`}
+                  onChange={handleChange}
+                />
+              </label>
+            ))}
             <button type="button" onClick={handleSubmit}>
               บันทึกและประเมิน
             </button>
@@ -107,28 +107,47 @@ function RiskAssessment() {
             </button>
           </form>
         </div>
-
-        {/* Result Card */}
         <div className="card result-card">
           <h2>ผลการประเมิน</h2>
-          {result === "at-risk" && (
-            <div className="result at-risk">
-              <p>มีความเสี่ยง</p>
-              <img
-                src={sadFace}
-                alt="At Risk"
-                className="result-icon"
-              />
+          {result === "Normal" && (
+            <div className="result normal">
+              <p>ปกติ</p>
+              <img src={happyFace} alt="Normal" className="result-icon" />
             </div>
           )}
-          {result === "no-risk" && (
-            <div className="result no-risk">
-              <p>ไม่มีความเสี่ยง</p>
-              <img
-                src={happyFace}
-                alt="No Risk"
-                className="result-icon"
-              />
+          {result === "Obesity" && (
+            <div className="result obesity">
+              <p>โรคอ้วน</p>
+              <img src={sadFace} alt="Obesity" className="result-icon" />
+            </div>
+          )}
+          {result === "Overweight" && (
+            <div className="result overweight">
+              <p>น้ำหนักเกิน</p>
+              <img src={sadFace} alt="Overweight" className="result-icon" />
+            </div>
+          )}
+          {result === "SAM" && (
+            <div className="result sam">
+              <p>ภาวะขาดสารอาหารเฉียบพลันรุนแรง</p>
+              <img src={sadFace} alt="SAM" className="result-icon" />
+            </div>
+          )}
+          {result === "Stunting" && (
+            <div className="result stunting">
+              <p>เตี้ยแคระ</p>
+              <img src={sadFace} alt="Stunting" className="result-icon" />
+            </div>
+          )}
+          {result === "Underweight" && (
+            <div className="result underweight">
+              <p>น้ำหนักต่ำกว่าเกณฑ์</p>
+              <img src={sadFace} alt="Underweight" className="result-icon" />
+            </div>
+          )}
+          {result === "error" && (
+            <div className="result error">
+              <p>เกิดข้อผิดพลาดในการประเมิน</p>
             </div>
           )}
           {!result && (

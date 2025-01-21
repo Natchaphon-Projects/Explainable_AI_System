@@ -127,16 +127,18 @@ function LoginPage() {
       </button>
       {!useHn && (
         <div className="options">
-          <label>
-            <input type="checkbox" /> Remember me
-          </label>
-          <button
-            className="link-button"
-            onClick={() => alert("Forgot password functionality to be implemented")}
-          >
-            Forgot Password?
-          </button>
-        </div>
+        <label>
+          <input type="checkbox" /> Remember
+        </label>
+        <button
+          className="link-button"
+          onClick={() => alert("Forgot password functionality to be implemented")}
+        >
+          Forgot Password?
+        </button>
+      </div>
+      
+      
       )}
       {!useHn && (
         <p>

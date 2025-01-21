@@ -19,6 +19,7 @@ import RiskAssessment from "./components/RiskAssessment";
 import Recommendations from "./components/Recommendations";
 import PatientHistory from "./components/PatientHistory";
 
+
 function App() {
   return (
     <Router>

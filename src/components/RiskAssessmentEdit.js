@@ -1,157 +1,185 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RiskAssessmentEdit.css";
-
-const patients = [
-  {
-    id: 1,
-    name: "เด็กชาย ศุวิชญ์ หนูวงศ์",
-    age: "4 ขวบ",
-    weight: "13 กก.",
-    height: "90 ซม.",
-    gender: "ชาย",
-    medicalCondition: "โรคโลหิตจาง (Anemia)",
-    meals: "3 มื้อ",
-    foodTypes: "ข้าว เนื้อสัตว์",
-    foodAvoided: "ผักใบเขียว",
-    bowelMovements: "2 ครั้ง / วัน",
-    sleep: "6 ชม.",
-  },
-  {
-    id: 2,
-    name: "เด็กหญิง ศิริกานต์ พรมสุ",
-    age: "5 ขวบ",
-    weight: "15 กก.",
-    height: "95 ซม.",
-    gender: "หญิง",
-    medicalCondition: "ไม่มีโรคประจำตัว",
-    meals: "3 มื้อ",
-    foodTypes: "ข้าว ผัก",
-    foodAvoided: "ขนมหวาน",
-    bowelMovements: "1 ครั้ง / วัน",
-    sleep: "8 ชม.",
-  },
-];
+import sadFace from "../assets/sad.png";
+import happyFace from "../assets/happiness.png";
 
 function RiskAssessmentEdit() {
   const navigate = useNavigate();
-  const [selectedPatient, setSelectedPatient] = useState(patients[0]);
-  const [evaluationResult, setEvaluationResult] = useState(null);
+  const [patientName] = useState("ศุวิชญ์ หนูวงศ์");
+  const [formData, setFormData] = useState({
+    Sex: 0,
+    Age: 30,
+    Height: 165,
+    Weight: 60,
+    Continent: 1,
+    National_Income: 2,
+    Status: 1,
+    Dietary_intakes_National: 1,
+    Dietary_intakes_Fruit_G: 150,
+    Dietary_intakes_Vegetables_G: 200,
+    Dietary_intakes_Legumes_G: 50,
+    Dietary_intakes_Nuts_G: 20,
+    Dietary_intakes_Whole_grains_G: 100,
+    Dietary_intakes_Fish_G: 80,
+    Dietary_intakes_Dairy_G: 200,
+    Dietary_intakes_Red_meat_G: 100,
+    Basic_Water: 95,
+    At_Least_Basic_Water: 90,
+    Safely_Managed_Water: 85,
+    Limited_Water: 10,
+    Unimproved_Water: 5,
+    Surface_Water: 0,
+    Basic_Sanitation: 90,
+    At_Least_Basic_Sanitation: 85,
+    Safely_Managed_Sanitation: 80,
+    Limited_Sanitation: 10,
+    Unimproved_Sanitation: 5,
+    Open_Defecation: 0,
+  });
 
-  const handlePatientChange = (e) => {
-    const selectedId = parseInt(e.target.value);
-    const patient = patients.find((p) => p.id === selectedId);
-    setSelectedPatient(patient);
-    setEvaluationResult(null);
+  const [result, setResult] = useState(null);
+
+  const fieldLabels = {
+    Sex: "เพศ (0 = หญิง, 1 = ชาย)",
+    Age: "อายุ (ปี)",
+    Height: "ส่วนสูง (เซนติเมตร)",
+    Weight: "น้ำหนัก (กิโลกรัม)",
+    Continent: "รหัสทวีป (Asia = 1)",
+    National_Income: "รายได้ของประเทศ (0-3)",
+    Status: "สถานะทางโภชนาการ",
+    Dietary_intakes_National: "การบริโภคอาหารในประเทศ",
+    Dietary_intakes_Fruit_G: "ปริมาณการบริโภคผลไม้ (กรัม)",
+    Dietary_intakes_Vegetables_G: "ปริมาณการบริโภคผัก (กรัม)",
+    Dietary_intakes_Legumes_G: "ปริมาณการบริโภคพืชตระกูลถั่ว (กรัม)",
+    Dietary_intakes_Nuts_G: "ปริมาณการบริโภคถั่ว (กรัม)",
+    Dietary_intakes_Whole_grains_G: "ปริมาณการบริโภคธัญพืชเต็มเมล็ด (กรัม)",
+    Dietary_intakes_Fish_G: "ปริมาณการบริโภคปลา (กรัม)",
+    Dietary_intakes_Dairy_G: "ปริมาณการบริโภคผลิตภัณฑ์นม (กรัม)",
+    Dietary_intakes_Red_meat_G: "ปริมาณการบริโภคเนื้อแดง (กรัม)",
+    Basic_Water: "การเข้าถึงน้ำพื้นฐาน (%)",
+    At_Least_Basic_Water: "การเข้าถึงน้ำอย่างน้อยพื้นฐาน (%)",
+    Safely_Managed_Water: "การจัดการน้ำอย่างปลอดภัย (%)",
+    Limited_Water: "การเข้าถึงน้ำจำกัด (%)",
+    Unimproved_Water: "น้ำไม่ได้ปรับปรุงคุณภาพ (%)",
+    Surface_Water: "น้ำผิวดิน (%)",
+    Basic_Sanitation: "การเข้าถึงสุขาภิบาลพื้นฐาน (%)",
+    At_Least_Basic_Sanitation: "การเข้าถึงสุขาภิบาลอย่างน้อยพื้นฐาน (%)",
+    Safely_Managed_Sanitation: "การจัดการสุขาภิบาลอย่างปลอดภัย (%)",
+    Limited_Sanitation: "การเข้าถึงสุขาภิบาลจำกัด (%)",
+    Unimproved_Sanitation: "สุขาภิบาลไม่ได้ปรับปรุง (%)",
+    Open_Defecation: "การถ่ายอุจจาระในที่โล่ง (%)",
   };
 
-  const handleInputChange = (field, value) => {
-    setSelectedPatient({ ...selectedPatient, [field]: value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (!isNaN(value) && parseFloat(value) >= 0) {
+      setFormData({
+        ...formData,
+        [name]: value === "" ? 0 : parseFloat(value),
+      });
+    }
   };
 
-  const handleEvaluate = () => {
-    const randomBMI = (Math.random() * (18 - 10) + 10).toFixed(2);
-    const randomRisk = Math.random() > 0.5 ? "เสี่ยงมากกว่าปกติ" : "ปกติ";
-    const result = {
-      bmi: randomBMI,
-      riskLevel: randomRisk,
-      notes: randomRisk === "เสี่ยงมากกว่าปกติ" ? "ควรพบแพทย์" : "สมดุลดี",
-    };
-    setEvaluationResult(result);
+  const handleSubmit = async () => {
+    console.log("Form data before sending:", formData);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }      
+
+      const data = await response.json();
+      if (data.prediction) {
+        setResult(data.prediction);
+      } else {
+        console.error("Error in prediction response:", data.error);
+        setResult("error");
+      }
+    } catch (error) {
+      console.error("Error during API call:", error);
+      setResult("error");
+    }
   };
 
   return (
     <div className="risk-assessment-edit-container">
-      <h2 className="page-title">ผลลัพธ์การประเมินของผู้ป่วย</h2>
-
+      <div className="patient-header">
+        <h1 className="page-title">แบบฟอร์มประเมินผู้ป่วย</h1>
+        <p className="patient-name">
+          ชื่อผู้ป่วย: <strong>{patientName}</strong>
+        </p>
+      </div>
       <div className="assessment-grid">
-        {/* Left Section */}
         <div className="patient-info-section">
-          <div className="form-row">
-            <label>เลือกผู้ป่วย:</label>
-            <select onChange={handlePatientChange}>
-              {patients.map((patient) => (
-                <option key={patient.id} value={patient.id}>
-                  {patient.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-section">
-            {Object.keys(selectedPatient).map((key) =>
-              key !== "id" && key !== "name" ? (
-                <div className="form-row" key={key}>
-                  <label>{key}:</label>
-                  <input
-                    type="text"
-                    value={selectedPatient[key]}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                  />
-                </div>
-              ) : null
-            )}
-          </div>
-          <button className="evaluate-button" onClick={handleEvaluate}>
-            บันทึกและประเมิน
-          </button>
-
-          {/* Action Buttons */}
-          <div className="action-buttons">
-            <button onClick={() => navigate("/patient-history")} className="action-button">
-              ดูประวัติการตรวจย้อนหลัง
-            </button>
-            <button onClick={() => navigate("/patient-profile")} className="action-button">
-              ดูประวัติผู้ป่วย
-            </button>
-            <button
-              onClick={() => (window.location.href = "http://localhost:3000/doctor-dashboard")}
-              className="action-button back-button"
-            >
-              ย้อนกลับไปหน้า Doctor Dashboard
-            </button>
-          </div>
+          <form>
+            {Object.keys(formData).map((key) => (
+              <div className="form-row" key={key}>
+                <label>{fieldLabels[key]}:</label>
+                <input
+                  type="number"
+                  name={key}
+                  value={formData[key]}
+                  placeholder={`กรอก ${fieldLabels[key]}`}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
+            <div className="action-buttons">
+              <button type="button" className="evaluate-button" onClick={handleSubmit}>
+                ประเมินอีกครั้ง
+              </button>
+              <button
+                type="button"
+                className="action-button back-button"
+                onClick={() => navigate("/doctor-dashboard")}
+              >
+                ย้อนกลับ
+              </button>
+            </div>
+          </form>
         </div>
-
-        {/* Right Section */}
         <div className="evaluation-section">
           <h3>ผลการประเมิน</h3>
-          {evaluationResult ? (
-            <div>
-              <p>BMI: {evaluationResult.bmi}</p>
-              <p>ความเสี่ยง: {evaluationResult.riskLevel}</p>
-              <p>หมายเหตุ: {evaluationResult.notes}</p>
-              <div className="chart-placeholder">
-                <p>กราฟแสดงผล BMI</p>
-                <div className="chart"></div>
-              </div>
-              <div className="evaluation-table">
-                <h4>ผลการตรวจ:</h4>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Test</th>
-                      <th>Results</th>
-                      <th>Reference Interval</th>
-                      <th>LOW</th>
-                      <th>NORMAL</th>
-                      <th>HIGH</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>BMI</td>
-                      <td>{evaluationResult.bmi}</td>
-                      <td>15.05</td>
-                      <td className={evaluationResult.bmi < 15 ? "low" : ""}></td>
-                      <td className={evaluationResult.bmi >= 15 && evaluationResult.bmi <= 18 ? "normal" : ""}></td>
-                      <td className={evaluationResult.bmi > 18 ? "high" : ""}></td>
-                    </tr>
-                  </tbody>
-                </table>
+          {result && result !== "error" && (
+            <div className={`result-card result ${result.toLowerCase()}`}>
+              <p className="result-text">{result}</p>
+              <img
+                src={result === "Normal" ? happyFace : sadFace}
+                alt={result}
+                className="result-icon"
+              />
+              <div className="xai-container">
+                <div className="xai-graph">
+                  <h4>Global XAI กราฟ</h4>
+                  <p>Global XAI คำอธิบาย</p>
+                </div>
+                <div className="xai-description">
+                  <h4>Local  กราฟ</h4>
+                  <p>
+                    <strong>Local XAI คำอธิบาย:</strong> 
+                  </p>
+                </div>
               </div>
             </div>
-          ) : (
-            <p>กรุณากรอกข้อมูลและกดประเมิน</p>
+          )}
+          {result === "error" && (
+            <div className="result error">
+              <p>เกิดข้อผิดพลาดในการประเมิน</p>
+            </div>
+          )}
+          {!result && (
+            <div className="result placeholder">
+              <p>กรุณากรอกข้อมูลและกดปุ่มประเมิน</p>
+            </div>
           )}
         </div>
       </div>
